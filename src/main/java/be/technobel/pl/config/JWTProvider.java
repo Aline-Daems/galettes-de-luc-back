@@ -2,6 +2,7 @@ package be.technobel.pl.config;
 
 import be.technobel.dal.models.entities.User;
 
+import be.technobel.dal.models.entities.enums.Roles;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import javax.management.relation.Role;
 import java.time.Instant;
 
 
@@ -33,12 +35,13 @@ public class JWTProvider {
         this.userDetailsService = userDetailsService;
     }
 
-    public String generateToken(String username, String email, User user){
+    public String generateToken(String username, String email, String firstname, Roles role){
 
         return TOKEN_PREFIX + JWT.create()
                 .withSubject(username)
                 .withSubject(email)
-                .withClaim("roles", user.getRoles().toString() )
+                .withClaim("roles", role.toString())
+                .withClaim("firstname", firstname)
                 .withExpiresAt(Instant.now().plusMillis(EXPIRES_AT))
                 .sign(Algorithm.HMAC512(JWT_SECRET));
     }

@@ -3,15 +3,15 @@ package be.technobel.pl.dtos;
 import be.technobel.dal.models.entities.enums.Roles;
 
 public record AuthDTO(
-        String Token,
+        String token,
+        String firstname,
         String email,
         Roles roles
 
 
 ) {
-    public AuthDTO(String Token, String email, Roles roles) {
-        this.Token = Token;
-        this.email = email;
-        this.roles = roles;
+
+    public static AuthDTO create(String token, String firstname, String email, Roles roles){
+        return new AuthDTO(token, firstname,  email, roles);
     }
 }

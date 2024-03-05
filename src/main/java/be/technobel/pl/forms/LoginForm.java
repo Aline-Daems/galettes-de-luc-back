@@ -3,22 +3,28 @@ package be.technobel.pl.forms;
 import lombok.Data;
 
 
-public record LoginForm(
+public class  LoginForm {
+    String email;
+    String password;
 
-        String email,
-        String password
-
-
-) {
-
-
-    @Override
-    public String email() {
+    public String getEmail() {
         return email;
     }
 
-    @Override
-    public String password() {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
         return password;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
+
+
+
+
+

@@ -2,10 +2,14 @@ package be.technobel.bl.impl;
 
 import be.technobel.bl.UserService;
 import be.technobel.dal.models.entities.User;
+import be.technobel.dal.models.entities.enums.Roles;
 import be.technobel.dal.repositories.UserRepository;
+import be.technobel.pl.config.JWTProvider;
 import be.technobel.pl.dtos.AuthDTO;
 import be.technobel.pl.forms.LoginForm;
 import be.technobel.pl.forms.UserForm;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +18,29 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final JWTProvider jwtProvider;
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTProvider jwtProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+
+        this.authenticationManager = authenticationManager;
+        this.jwtProvider = jwtProvider;
     }
 
     @Override
     public AuthDTO login(LoginForm form) {
-        return null;
+      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getEmail(), form.getPassword()));
+      User user = userRepository.findByEmail(form.getEmail()).get();
+
+      String token = jwtProvider.generateToken(user.getUsername(),  user.getEmail(), user.getFirstname() , user.getRoles());
+
+      AuthDTO authDTO = AuthDTO.create(token, user.getFirstname(), user.getEmail(),user.getRoles());
+
+      return authDTO;
+
     }
 
     @Override
