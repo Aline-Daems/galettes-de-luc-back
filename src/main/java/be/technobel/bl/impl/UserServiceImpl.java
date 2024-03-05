@@ -6,15 +6,18 @@ import be.technobel.dal.repositories.UserRepository;
 import be.technobel.pl.dtos.AuthDTO;
 import be.technobel.pl.forms.LoginForm;
 import be.technobel.pl.forms.UserForm;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServicImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServicImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -30,9 +33,10 @@ public class UserServicImpl implements UserService {
         }
 
         User user = new User();
+        user.setFirstname(form.firstname());
         user.setLastname(form.lastname());
         user.setEmail(form.email());
-        user.setPassword(form.password());
+        user.setPassword(passwordEncoder.encode(form.password()));
         user.setRoles(form.roles());
 
         userRepository.save(user);

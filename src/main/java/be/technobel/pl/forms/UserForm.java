@@ -5,6 +5,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 public record UserForm(
+        String firstname,
         String lastname,
 
         String password,
