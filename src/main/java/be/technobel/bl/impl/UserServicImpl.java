@@ -26,7 +26,7 @@ public class UserServicImpl implements UserService {
     public void create(UserForm form) {
 
         if(form == null){
-            throw new IllegalArgumentException("Le formulaire ne peut pas être vide");
+            throw new IllegalArgumentException("Le formulaire doit être rempli");
         }
 
         User user = new User();
