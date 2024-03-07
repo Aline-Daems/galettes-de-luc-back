@@ -1,6 +1,6 @@
 package be.technobel.pl.dtos;
 
-import be.technobel.dal.models.entities.enums.Roles;
+import be.technobel.dal.models.enums.enums.Roles;
 
 public record AuthDTO(
         String token,

@@ -1,4 +1,4 @@
-package be.technobel.dal.models.entities.enums;
+package be.technobel.dal.models.enums.enums;
 
 public enum Roles {
 

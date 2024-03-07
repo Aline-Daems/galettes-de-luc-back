@@ -2,7 +2,7 @@ package be.technobel.pl.config;
 
 import be.technobel.dal.models.entities.User;
 
-import be.technobel.dal.models.entities.enums.Roles;
+import be.technobel.dal.models.enums.enums.Roles;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.management.relation.Role;
 import java.time.Instant;
 
 
@@ -24,7 +23,7 @@ import java.time.Instant;
 public class JWTProvider {
 
     private static final String JWT_SECRET = "7YuQY65WV77AmBjk3qLFT2Q4Pd3TxR4GU25sxfKQ6g92f6aHcnEu5jscP8j35iV7KTvxwtM42X5jMV49Yiv4phx7U37QBK9wr573";
-    private static final long EXPIRES_AT = 900_000;
+    private static final long EXPIRES_AT = 3_600_000;
     private static final String AUTH_HEADER = "Authorization";
 
     private static final String TOKEN_PREFIX =" Bearer ";

@@ -2,7 +2,6 @@ package be.technobel.bl.impl;
 
 import be.technobel.bl.UserService;
 import be.technobel.dal.models.entities.User;
-import be.technobel.dal.models.entities.enums.Roles;
 import be.technobel.dal.repositories.UserRepository;
 import be.technobel.pl.config.JWTProvider;
 import be.technobel.pl.dtos.AuthDTO;

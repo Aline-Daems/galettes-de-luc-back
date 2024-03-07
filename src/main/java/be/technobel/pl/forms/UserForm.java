@@ -1,8 +1,6 @@
 package be.technobel.pl.forms;
 
-import be.technobel.dal.models.entities.enums.Roles;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import be.technobel.dal.models.enums.enums.Roles;
 
 public record UserForm(
         String firstname,

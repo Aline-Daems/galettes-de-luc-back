@@ -2,7 +2,7 @@ package be.technobel.bll;
 
 import be.technobel.bl.impl.UserServiceImpl;
 import be.technobel.dal.models.entities.User;
-import be.technobel.dal.models.entities.enums.Roles;
+import be.technobel.dal.models.enums.enums.Roles;
 import be.technobel.dal.repositories.UserRepository;
 import be.technobel.pl.forms.UserForm;
 import org.junit.jupiter.api.BeforeEach;
