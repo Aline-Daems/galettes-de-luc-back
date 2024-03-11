@@ -1,9 +1,13 @@
 package be.technobel.dal.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.Locale;
 
 @Entity
 public class Receipt {
@@ -18,6 +22,7 @@ public class Receipt {
     @NotNull
     private String providerNumber;
     @NotNull
+    @Future(message = "La date d'expiration ne peut pas être inférieure ou égale à la date du jour.")
     private LocalDate expirationDate;
 
     private double temperature;
@@ -82,11 +87,17 @@ public class Receipt {
     }
 
     public LocalDate getExpirationDate() {
+
+
         return expirationDate;
     }
 
     public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
+        if(expirationDate != null && expirationDate.isBefore(LocalDate.now())) {
+
+            throw new IllegalStateException("La date d'expiration ne peut pas être inférieure ou égale à la date du jour.");
+
+        }
     }
 
     public double getTemperature() {
