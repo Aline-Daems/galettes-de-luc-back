@@ -31,7 +31,7 @@ public record ReceiptForm(
 
         String comment,
 
-        User user,
+//        User user,
 
         String email
 ) {

@@ -41,8 +41,8 @@ public class Receipt {
     private String hygienComment;
 
     private String comment;
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
 
     private String email;
 
@@ -93,11 +93,13 @@ public class Receipt {
     }
 
     public void setExpirationDate(LocalDate expirationDate) {
-        if(expirationDate != null && expirationDate.isBefore(LocalDate.now())) {
+        if(expirationDate.isBefore(LocalDate.now())) {
 
             throw new IllegalStateException("La date d'expiration ne peut pas être inférieure ou égale à la date du jour.");
 
         }
+
+        this.expirationDate = expirationDate;
     }
 
     public double getTemperature() {
@@ -180,11 +182,11 @@ public class Receipt {
         this.comment = comment;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }
