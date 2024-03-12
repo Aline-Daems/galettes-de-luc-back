@@ -2,17 +2,26 @@ package be.technobel.bl.impl;
 
 import be.technobel.bl.ReceiptService;
 import be.technobel.dal.models.entities.Receipt;
+import be.technobel.dal.repositories.ProviderRepository;
 import be.technobel.dal.repositories.ReceiptRepository;
 import be.technobel.pl.forms.ReceiptForm;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class ReceiptServiceImpl implements ReceiptService {
 
     private final ReceiptRepository receiptRepository;
+    private final ProviderRepository providerRepository;
 
-    public ReceiptServiceImpl(ReceiptRepository receiptRepository) {
+    public ReceiptServiceImpl(ReceiptRepository receiptRepository, ProviderRepository providerRepository) {
         this.receiptRepository = receiptRepository;
+        this.providerRepository = providerRepository;
     }
 
 
@@ -20,7 +29,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     public void create(ReceiptForm receiptForm) {
 
         if(receiptForm == null){
-            throw new IllegalArgumentException("Le formulaire doit être rempli");
+            throw new IllegalArgumentException("Form can't be null");
         }
 
         Receipt receipt = new Receipt();
@@ -30,18 +39,33 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setProviderNumber(receiptForm.providerNumber());
         receipt.setExpirationDate(receiptForm.expirationDate());
         receipt.setTemperature(receiptForm.temperature());
-        receipt.setFrozen(receiptForm.frozen());
+        receipt.setFrozen(false);
         receipt.setFrozenDate(receiptForm.frozenDate());
-        receipt.setLabelling(receiptForm.labelling());
+        receipt.setThawedDate(receiptForm.thawedDate());
+        receipt.setFrozenExpirationDate(receiptForm.frozenExpirationDate());
+        receipt.setLabelling(false);
         receipt.setLabelComment(receiptForm.labelComment());
-        receipt.setPackaging(receiptForm.packaging());
+        receipt.setPackaging(false);
         receipt.setPackagingComment(receiptForm.packagingComment());
-        receipt.setHygiene(receiptForm.hygiene());
-        receipt.setHygienComment(receiptForm.hygienComment());
+        receipt.setHygiene(false);
+        receipt.setHygienComment(receiptForm.hygieneComment());
         receipt.setEmail(receiptForm.email());
-
+        receipt.setProvider(providerRepository.findById(receiptForm.providerId()).orElseThrow(()-> new EntityNotFoundException("Pas trouvé")));
         receiptRepository.save(receipt);
 
+    }
 
+
+    @Override
+    public Optional<Receipt> getOne(Long id) {
+        return receiptRepository.findById(id);
+    }
+
+    @Override
+    public ResponseEntity<String> dataImage(MultipartFile file, Long id) throws IOException {
+          Receipt receipt = getOne(id).orElseThrow(()-> new EntityNotFoundException("Id not found"));
+          receipt.setImageData(file.getBytes());
+            receiptRepository.save(receipt);
+        return null;
     }
 }

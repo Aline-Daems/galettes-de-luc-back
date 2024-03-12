@@ -1,9 +1,13 @@
 package be.technobel.dal.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.Locale;
 
 @Entity
 public class Receipt {
@@ -18,13 +22,15 @@ public class Receipt {
     @NotNull
     private String providerNumber;
     @NotNull
+    @Future(message = "La date d'expiration ne peut pas être inférieure ou égale à la date du jour.")
     private LocalDate expirationDate;
-
     private double temperature;
     @NotNull
     private boolean frozen;
-
     private LocalDate frozenDate;
+    private LocalDate thawedDate;
+    private LocalDate frozenExpirationDate;
+    private long frozenDays;
     @NotNull
     private boolean labelling;
     private String labelComment;
@@ -33,13 +39,17 @@ public class Receipt {
     private String packagingComment;
     @NotNull
     private boolean hygiene;
-    private String hygienComment;
+    private String hygieneComment;
 
     private String comment;
-    @ManyToOne
-    private User user;
 
     private String email;
+
+    //The content of the document, stored as a large object (LOB)
+    @Lob
+    private byte[] imageData;
+    @ManyToOne
+    private Provider provider;
 
     public String getEmail() {
         return email;
@@ -70,6 +80,11 @@ public class Receipt {
     }
 
     public void setQuantity(double quantity) {
+
+        if(quantity < 0 ){
+            throw new IllegalStateException("La quantité doit être supérieur à 0");
+
+        }
         this.quantity = quantity;
     }
 
@@ -82,10 +97,18 @@ public class Receipt {
     }
 
     public LocalDate getExpirationDate() {
+
+
         return expirationDate;
     }
 
     public void setExpirationDate(LocalDate expirationDate) {
+        if(expirationDate.isBefore(LocalDate.now())) {
+
+            throw new IllegalStateException("La date d'expiration ne peut pas être inférieure ou égale à la date du jour.");
+
+        }
+
         this.expirationDate = expirationDate;
     }
 
@@ -111,6 +134,30 @@ public class Receipt {
 
     public void setFrozenDate(LocalDate frozenDate) {
         this.frozenDate = frozenDate;
+    }
+
+    public LocalDate getThawedDate() {
+        return thawedDate;
+    }
+
+    public void setThawedDate(LocalDate thawedDate) {
+        this.thawedDate = thawedDate;
+    }
+
+    public LocalDate getFrozenExpirationDate() {
+        return frozenExpirationDate;
+    }
+
+    public void setFrozenExpirationDate(LocalDate frozenExpirationDate) {
+        this.frozenExpirationDate = frozenExpirationDate;
+    }
+
+    public long getFrozenDays() {
+        return frozenDays;
+    }
+
+    public void setFrozenDays(long frozenDays) {
+        this.frozenDays = frozenDays;
     }
 
     public boolean isLabelling() {
@@ -154,11 +201,11 @@ public class Receipt {
     }
 
     public String getHygienComment() {
-        return hygienComment;
+        return hygieneComment;
     }
 
     public void setHygienComment(String hygienComment) {
-        this.hygienComment = hygienComment;
+        this.hygieneComment = hygienComment;
     }
 
     public String getComment() {
@@ -168,12 +215,18 @@ public class Receipt {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-    public User getUser() {
-        return user;
+    public Provider getProvider() {
+        return provider;
+    }
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 }

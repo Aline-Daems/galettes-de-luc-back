@@ -9,31 +9,25 @@ import java.time.LocalDate;
 public record ReceiptForm(
 
         LocalDate receiptDate,
-
         double quantity,
-
         String providerNumber,
         LocalDate expirationDate,
-
         double temperature,
-
         boolean frozen,
         LocalDate frozenDate,
-
+        LocalDate thawedDate,
+        LocalDate frozenExpirationDate,
+        long frozenDays,
         boolean labelling,
         String labelComment,
-
         boolean packaging,
         String packagingComment,
-
         boolean hygiene,
-        String hygienComment,
-
+        String hygieneComment,
         String comment,
-
-        User user,
-
-        String email
+        String email,
+        Long providerId,
+        byte[] imageData
 ) {
 
 }
