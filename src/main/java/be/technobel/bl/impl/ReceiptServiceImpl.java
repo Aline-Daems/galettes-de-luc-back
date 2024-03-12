@@ -30,13 +30,13 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setProviderNumber(receiptForm.providerNumber());
         receipt.setExpirationDate(receiptForm.expirationDate());
         receipt.setTemperature(receiptForm.temperature());
-        receipt.setFrozen(receiptForm.frozen());
+        receipt.setFrozen(false);
         receipt.setFrozenDate(receiptForm.frozenDate());
-        receipt.setLabelling(receiptForm.labelling());
+        receipt.setLabelling(false);
         receipt.setLabelComment(receiptForm.labelComment());
-        receipt.setPackaging(receiptForm.packaging());
+        receipt.setPackaging(false);
         receipt.setPackagingComment(receiptForm.packagingComment());
-        receipt.setHygiene(receiptForm.hygiene());
+        receipt.setHygiene(false);
         receipt.setHygienComment(receiptForm.hygienComment());
         receipt.setEmail(receiptForm.email());
 
