@@ -41,8 +41,6 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public void delete(Long id) {
 
-        Optional<Provider> provider = providerRepository.findById(id);
-
         providerRepository.deleteById(id);
     }
 }

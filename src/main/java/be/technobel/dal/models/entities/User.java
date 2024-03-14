@@ -16,7 +16,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @Size(min = 3, max=30)
     @NotNull
     @NotBlank(message = "Le prénom ne peut être vide")

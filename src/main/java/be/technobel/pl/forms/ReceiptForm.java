@@ -27,6 +27,7 @@ public record ReceiptForm(
         String comment,
         String email,
         Long providerId,
+        Long materialId,
         byte[] imageData
 ) {
 

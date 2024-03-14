@@ -10,8 +10,10 @@ import java.util.Optional;
 
 public interface ReceiptService {
 
-    void create(ReceiptForm receiptForm);
+    Long create(ReceiptForm receiptForm);
     Optional<Receipt> getOne(Long id);
 
-    ResponseEntity<String> dataImage(MultipartFile file, Long id) throws IOException;
+   void dataImage(byte[] file, Long id);
+
+    Receipt getLast();
 }

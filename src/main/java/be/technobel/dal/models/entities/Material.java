@@ -7,21 +7,24 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Provider {
+public class Material {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     private String name;
+    @NotNull
+    private boolean bio =false;
+    @NotNull
+    private boolean fresh =false;
 
-    private String description;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,11 +36,19 @@ public class Provider {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public boolean isBio() {
+        return bio;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBio(boolean bio) {
+        this.bio = bio;
+    }
+
+    public boolean isFresh() {
+        return fresh;
+    }
+
+    public void setFresh(boolean fresh) {
+        this.fresh = fresh;
     }
 }

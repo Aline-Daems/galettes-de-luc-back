@@ -14,7 +14,7 @@ public class Receipt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @NotNull
     private LocalDate receiptDate;
     @NotNull
@@ -26,19 +26,19 @@ public class Receipt {
     private LocalDate expirationDate;
     private double temperature;
     @NotNull
-    private boolean frozen;
+    private boolean frozen =false;
     private LocalDate frozenDate;
     private LocalDate thawedDate;
     private LocalDate frozenExpirationDate;
     private long frozenDays;
     @NotNull
-    private boolean labelling;
+    private boolean labelling =false;
     private String labelComment;
     @NotNull
-    private boolean packaging;
+    private boolean packaging=false;
     private String packagingComment;
     @NotNull
-    private boolean hygiene;
+    private boolean hygiene=false;
     private String hygieneComment;
 
     private String comment;
@@ -50,6 +50,11 @@ public class Receipt {
     private byte[] imageData;
     @ManyToOne
     private Provider provider;
+
+    @ManyToOne
+    Material material;
+
+
 
     public String getEmail() {
         return email;
@@ -228,5 +233,13 @@ public class Receipt {
 
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 }
