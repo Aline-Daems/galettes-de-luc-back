@@ -26,7 +26,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 
 
     @Override
-    public void create(ReceiptForm receiptForm) {
+    public Long create(ReceiptForm receiptForm) {
 
         if(receiptForm == null){
             throw new IllegalArgumentException("Form can't be null");
@@ -53,6 +53,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setProvider(providerRepository.findById(receiptForm.providerId()).orElseThrow(()-> new EntityNotFoundException("Pas trouvé")));
         receiptRepository.save(receipt);
 
+        return receipt.getId();
     }
 
 
@@ -62,10 +63,15 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     @Override
-    public ResponseEntity<String> dataImage(MultipartFile file, Long id) throws IOException {
+    public void dataImage(byte[] file, Long id)  {
           Receipt receipt = getOne(id).orElseThrow(()-> new EntityNotFoundException("Id not found"));
-          receipt.setImageData(file.getBytes());
-            receiptRepository.save(receipt);
-        return null;
+          receipt.setImageData(file);
+          receiptRepository.save(receipt);
+
+    }
+
+    @Override
+    public Receipt getLast() {
+        return receiptRepository.findFirstByOrderByIdDesc();
     }
 }
