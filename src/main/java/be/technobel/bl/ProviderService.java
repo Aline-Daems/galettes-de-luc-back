@@ -1,5 +1,6 @@
 package be.technobel.bl;
 
+import be.technobel.dal.models.entities.Material;
 import be.technobel.dal.models.entities.Provider;
 import be.technobel.pl.forms.ProviderForm;
 
@@ -13,6 +14,7 @@ public interface ProviderService {
 
     void delete(Long id);
 
+   Provider getOne(Long id);
 
-
+   void update(ProviderForm providerForm, Long id);
 }
