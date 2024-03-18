@@ -51,8 +51,13 @@ public class Receipt {
     @ManyToOne
     private Provider provider;
 
+
     @ManyToOne
     Material material;
+
+
+
+
 
 
 

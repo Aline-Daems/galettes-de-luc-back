@@ -10,4 +10,11 @@ public interface MaterialService {
     void create(MaterialForm materialForm);
 
     List<Material> getAll();
+
+    void delete(Long id);
+
+    Material getOne(Long id);
+
+    void update(MaterialForm materialForm, Long id);
+
 }

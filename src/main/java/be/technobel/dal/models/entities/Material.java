@@ -19,6 +19,8 @@ public class Material {
     @NotNull
     private boolean fresh =false;
 
+    private boolean active = true;
+
 
     public Long getId() {
         return id;
@@ -50,5 +52,13 @@ public class Material {
 
     public void setFresh(boolean fresh) {
         this.fresh = fresh;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

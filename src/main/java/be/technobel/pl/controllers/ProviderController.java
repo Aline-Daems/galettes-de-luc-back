@@ -35,9 +35,23 @@ public class ProviderController {
         return   ResponseEntity.ok(dtos);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public void delete(@PathVariable Long id){
 
         providerService.delete(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public void update(@PathVariable Long id, @RequestBody ProviderForm providerForm){
+
+        providerService.update(providerForm, id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProviderDTO> getOne(@PathVariable Long id){
+
+        return ResponseEntity.ok(ProviderDTO.fromEntity(providerService.getOne(id)));
+
+
     }
 }

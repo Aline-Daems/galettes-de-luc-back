@@ -17,6 +17,8 @@ public class Provider {
 
     private String description;
 
+    private boolean active=true;
+
     public long getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class Provider {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
