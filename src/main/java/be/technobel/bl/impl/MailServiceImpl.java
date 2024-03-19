@@ -55,7 +55,7 @@ public class MailServiceImpl implements MailService {
         properties.put("provider", provider);
         properties.put("material", material);
 
-        Email email = new Email(receiptForm.email(), "daems.aline90@gmail.com", "Formulaire de réception" + LocalDate.now(), new Email.HtmlTemplate(templateName, properties));
+        Email email = new Email(receiptForm.email(), "daems.aline90@gmail.com", "Formulaire de réception "+ " " + LocalDate.now() +" " +provider.getName(), new Email.HtmlTemplate(templateName, properties));
 
 
         String html = getHtmlContent(email);

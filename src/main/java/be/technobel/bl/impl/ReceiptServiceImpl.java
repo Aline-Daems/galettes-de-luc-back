@@ -55,7 +55,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         Receipt receipt = new Receipt();
 
-        receipt.setReceiptDate(receiptForm.receiptDate().now());
+        receipt.setReceiptDate(LocalDate.now());
         receipt.setQuantity(receiptForm.quantity());
         receipt.setProviderNumber(receiptForm.providerNumber());
         receipt.setExpirationDate(receiptForm.expirationDate());
@@ -75,7 +75,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setProvider(providerRepository.findById(receiptForm.providerId()).orElseThrow(()-> new EntityNotFoundException("Provider not found")));
         receipt.setMaterial(materialRepository.findById(receiptForm.materialId()).orElseThrow(() -> new EntityNotFoundException("Material not found ")));
 
-       // mailService.sendEmailMessage(receiptForm, receipt.getProvider(), receipt.getMaterial());
+        mailService.sendEmailMessage(receiptForm, receipt.getProvider(), receipt.getMaterial());
         receiptRepository.save(receipt);
         return receipt.getId();
 

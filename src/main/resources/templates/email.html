@@ -3,58 +3,67 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Email</title>
+    <style>
+        .title{
+            font-weight: bold;
+        }
+    </style>
 </head>
+
+
 <body>
 
-    <div>
-        <p>Date:</p>
-        <p th:text="${reception.receiptDate}">
-        <p>Email du réceptionniste</p>
+    <div class="form">
+
+<!--        <p>Date:</p>-->
+<!--        <p th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}">-->
+
+        <p class="title">Email du réceptionniste:</p>
         <p th:text="${reception.email}">
-        <p>Matière première</p>
-       <p th:text="${material.name}">
-        <p>Fournisseur</p>
-       <p th:text="${provider.name}">
-        <p>Numéro du Fournisseur : </p>
+        <p class="title">Matière première</p> <p th:text="${material.name}">
+        <p class="title">Fournisseur:</p>
+        <p th:text="${provider.name}">
+        <p class="title">Numéro du Fournisseur : </p>
         <p th:text="${reception.providerNumber}">
-        <p>Quantité: </p>
+        <p class="title">Quantité: </p>
         <p th:text="${reception.quantity}">
-        <p>D.L.U: </p>
-        <p th:text="${reception.quantity}">
+        <p class="title">D.L.U: </p>
+        <p th:text="${#temporals.format(reception.expirationDate, 'dd-MM-yyyy')}">
         </p>
          <div th:if="${material.fresh == true}">
              <p>Température:</p>
              <p th:text="${reception.temperature}"></p>
          </div>
 
-        <p>Produit surgelé ? </p>
+        <p class="title">Produit surgelé ? </p>
         <p th:text="${reception.frozen}"></p>
         <div th:if="${reception.frozen == true}">
-            <p>Température:</p>
+            <p class="title">Température:</p>
             <p th:text="${reception.frozenTemp}"></p>
-            <p>Date de congélation:</p>
+            <p class="title">Date de congélation:</p>
             <p th:text="${reception.frozenDate}"></p>
-            <p>Date de décongélation:</p>
+            <p class="title">Date de décongélation:</p>
             <p th:text="${reception.thawedDate}"></p>
-            <p>DLC:</p>
+            <p class="title">DLC:</p>
             <p th:text="${reception.frozenExpirationDate}"></p>
-            <p>Nombre de jour:</p>
+            <p class="title">Nombre de jour:</p>
             <p th:text="${reception.frozenDays}"></p>
         </div>
 
-        <p>Etiquetage non conforme ? </p>
+        <p class="title">Etiquetage non conforme ? </p>
         <div th:if="${reception.labelling == true}">
             <p th:text="${reception.labelComment}"></p>
         </div>
-        <p>Embellage non conforme ?  </p>
+        <p class="title">Embellage non conforme ?  </p>
         <div th:if="${reception.packaging == true}">
             <p th:text="${reception.packagingComment}"></p>
         </div>
-        <p>Hygiène non conforme ? </p>
+        <p class="title">Hygiène non conforme ? </p>
         <div th:if="${reception.hygiene == true}">
             <p th:text="${reception.hygieneComment}"></p>
         </div>
         <div th:if="${reception.comment != null}"></div>
+        <p class="title">Commentaires : </p>
         <p th:text="${reception.comment}"></p>
 
     </div>
