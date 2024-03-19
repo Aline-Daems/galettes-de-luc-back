@@ -3,6 +3,7 @@ package be.technobel.pl.controllers;
 import be.technobel.bl.ReceiptService;
 import be.technobel.dal.models.entities.Receipt;
 import be.technobel.pl.forms.ReceiptForm;
+import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ReceiptController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Long> create(@RequestBody ReceiptForm form){
+    public ResponseEntity<Long> create(@RequestBody ReceiptForm form) throws MessagingException {
         Long id = receiptService.create(form);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }

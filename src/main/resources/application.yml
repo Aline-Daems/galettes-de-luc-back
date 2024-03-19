@@ -6,7 +6,7 @@ Spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     database: postgresql
     properties:
@@ -18,4 +18,20 @@ Spring:
       enabled: true
       max-file-size: 1024MB
       max-request-size: 1024MB
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: daems.aline90@gmail.com
+    password: rduvgyvrgmiwxfcn
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+    protocol: smtp
+
+    test-connection: false
 

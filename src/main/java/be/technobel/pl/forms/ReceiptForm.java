@@ -14,6 +14,7 @@ public record ReceiptForm(
         LocalDate expirationDate,
         double temperature,
         boolean frozen,
+        int frozenTemp,
         LocalDate frozenDate,
         LocalDate thawedDate,
         LocalDate frozenExpirationDate,

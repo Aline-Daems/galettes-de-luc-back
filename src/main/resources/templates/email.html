@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Email</title>
+</head>
+<body>
+
+    <div>
+        <p>Date:</p>
+        <p th:text="${reception.receiptDate}">
+        <p>Email du réceptionniste</p>
+        <p th:text="${reception.email}">
+        <p>Matière première</p>
+       <p th:text="${material.name}">
+        <p>Fournisseur</p>
+       <p th:text="${provider.name}">
+        <p>Numéro du Fournisseur : </p>
+        <p th:text="${reception.providerNumber}">
+        <p>Quantité: </p>
+        <p th:text="${reception.quantity}">
+        <p>D.L.U: </p>
+        <p th:text="${reception.quantity}">
+        </p>
+         <div th:if="${material.fresh == true}">
+             <p>Température:</p>
+             <p th:text="${reception.temperature}"></p>
+         </div>
+
+        <p>Produit surgelé ? </p>
+        <p th:text="${reception.frozen}"></p>
+        <div th:if="${reception.frozen == true}">
+            <p>Température:</p>
+            <p th:text="${reception.frozenTemp}"></p>
+            <p>Date de congélation:</p>
+            <p th:text="${reception.frozenDate}"></p>
+            <p>Date de décongélation:</p>
+            <p th:text="${reception.thawedDate}"></p>
+            <p>DLC:</p>
+            <p th:text="${reception.frozenExpirationDate}"></p>
+            <p>Nombre de jour:</p>
+            <p th:text="${reception.frozenDays}"></p>
+        </div>
+
+        <p>Etiquetage non conforme ? </p>
+        <div th:if="${reception.labelling == true}">
+            <p th:text="${reception.labelComment}"></p>
+        </div>
+        <p>Embellage non conforme ?  </p>
+        <div th:if="${reception.packaging == true}">
+            <p th:text="${reception.packagingComment}"></p>
+        </div>
+        <p>Hygiène non conforme ? </p>
+        <div th:if="${reception.hygiene == true}">
+            <p th:text="${reception.hygieneComment}"></p>
+        </div>
+        <div th:if="${reception.comment != null}"></div>
+        <p th:text="${reception.comment}"></p>
+
+    </div>
+
+</body>
+</html>

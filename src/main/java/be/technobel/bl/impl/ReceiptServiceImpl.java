@@ -1,17 +1,28 @@
 package be.technobel.bl.impl;
 
+import be.technobel.bl.MailService;
 import be.technobel.bl.ReceiptService;
+import be.technobel.dal.models.entities.Email;
+import be.technobel.dal.models.entities.Provider;
 import be.technobel.dal.models.entities.Receipt;
 import be.technobel.dal.repositories.MaterialRepository;
 import be.technobel.dal.repositories.ProviderRepository;
 import be.technobel.dal.repositories.ReceiptRepository;
 import be.technobel.pl.forms.ReceiptForm;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import be.technobel.dal.models.entities.Email;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -19,19 +30,24 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     private final ReceiptRepository receiptRepository;
     private final ProviderRepository providerRepository;
-
+    private final JavaMailSender emailSender;
+    private final MailService mailService;
     private final MaterialRepository materialRepository;
+    private final SpringTemplateEngine springTemplateEngine;
 
-    public ReceiptServiceImpl(ReceiptRepository receiptRepository, ProviderRepository providerRepository, MaterialRepository materialRepository1) {
+    public ReceiptServiceImpl(ReceiptRepository receiptRepository, ProviderRepository providerRepository, JavaMailSender emailSender, MailService mailService, MaterialRepository materialRepository1, SpringTemplateEngine springTemplateEngine) {
         this.receiptRepository = receiptRepository;
         this.providerRepository = providerRepository;
+        this.emailSender = emailSender;
+        this.mailService = mailService;
         this.materialRepository = materialRepository1;
 
+        this.springTemplateEngine = springTemplateEngine;
     }
 
 
     @Override
-    public Long create(ReceiptForm receiptForm) {
+    public Long create(ReceiptForm receiptForm) throws MessagingException {
 
         if(receiptForm == null){
             throw new IllegalArgumentException("Form can't be null");
@@ -45,6 +61,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setExpirationDate(receiptForm.expirationDate());
         receipt.setTemperature(receiptForm.temperature());
         receipt.setFrozen(receiptForm.frozen());
+        receipt.setFrozenTemp(receiptForm.frozenTemp());
         receipt.setFrozenDate(receiptForm.frozenDate());
         receipt.setThawedDate(receiptForm.thawedDate());
         receipt.setFrozenExpirationDate(receiptForm.frozenExpirationDate());
@@ -58,10 +75,14 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setProvider(providerRepository.findById(receiptForm.providerId()).orElseThrow(()-> new EntityNotFoundException("Provider not found")));
         receipt.setMaterial(materialRepository.findById(receiptForm.materialId()).orElseThrow(() -> new EntityNotFoundException("Material not found ")));
 
+       // mailService.sendEmailMessage(receiptForm, receipt.getProvider(), receipt.getMaterial());
         receiptRepository.save(receipt);
-
         return receipt.getId();
+
+
     }
+
+
 
 
     @Override

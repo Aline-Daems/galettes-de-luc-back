@@ -27,6 +27,8 @@ public class Receipt {
     private double temperature;
     @NotNull
     private boolean frozen =false;
+
+    private int frozenTemp;
     private LocalDate frozenDate;
     private LocalDate thawedDate;
     private LocalDate frozenExpirationDate;
@@ -246,5 +248,13 @@ public class Receipt {
 
     public void setMaterial(Material material) {
         this.material = material;
+    }
+
+    public int getFrozenTemp() {
+        return frozenTemp;
+    }
+
+    public void setFrozenTemp(int frozenTemp) {
+        this.frozenTemp = frozenTemp;
     }
 }
