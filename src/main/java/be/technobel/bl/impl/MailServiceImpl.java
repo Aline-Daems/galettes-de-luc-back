@@ -4,10 +4,12 @@ import be.technobel.bl.MailService;
 import be.technobel.dal.models.entities.Email;
 import be.technobel.dal.models.entities.Material;
 import be.technobel.dal.models.entities.Provider;
+import be.technobel.pl.config.DocumentGenerator;
 import be.technobel.pl.forms.ReceiptForm;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -27,9 +28,12 @@ public class MailServiceImpl implements MailService {
     private final  JavaMailSender emailSender;
     private final SpringTemplateEngine springTemplateEngine;
 
-    public MailServiceImpl(JavaMailSender emailSender, SpringTemplateEngine springTemplateEngine) {
+    private final DocumentGenerator documentGenerator;
+
+    public MailServiceImpl(JavaMailSender emailSender, SpringTemplateEngine springTemplateEngine, DocumentGenerator documentGenerator) {
         this.emailSender = emailSender;
         this.springTemplateEngine = springTemplateEngine;
+        this.documentGenerator = documentGenerator;
     }
 
     @Override
@@ -48,23 +52,28 @@ public class MailServiceImpl implements MailService {
     public void sendMail(ReceiptForm receiptForm, String templateName, Provider provider, Material material) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
 
-        MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+        MimeMessageHelper helper = new MimeMessageHelper(message,  MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("reception", receiptForm);
         properties.put("provider", provider);
         properties.put("material", material);
 
+
         Email email = new Email(receiptForm.email(), "daems.aline90@gmail.com", "Formulaire de réception "+ " " + LocalDate.now() +" " +provider.getName(), new Email.HtmlTemplate(templateName, properties));
 
 
         String html = getHtmlContent(email);
+        byte[] pdfBytes = documentGenerator.htmlToPdf(html);
+        ByteArrayResource pdfAttachement = new ByteArrayResource(pdfBytes);
 
 
         helper.setFrom(email.getFrom());
         helper.setTo(receiptForm.email());
         helper.setSubject(email.getSubject());
         helper.setText(html,true);
+        helper.addAttachment("formulaire-reception "+ LocalDate.now() +".pdf" , pdfAttachement  );
+
 
 
         emailSender.send(message);
