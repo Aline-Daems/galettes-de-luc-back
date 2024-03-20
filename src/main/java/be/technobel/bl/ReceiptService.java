@@ -16,5 +16,5 @@ public interface ReceiptService {
 
    void dataImage(byte[] file, Long id);
 
-    Receipt getLast();
+
 }

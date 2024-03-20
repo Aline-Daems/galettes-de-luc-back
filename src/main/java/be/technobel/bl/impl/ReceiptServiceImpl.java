@@ -75,7 +75,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setProvider(providerRepository.findById(receiptForm.providerId()).orElseThrow(()-> new EntityNotFoundException("Provider not found")));
         receipt.setMaterial(materialRepository.findById(receiptForm.materialId()).orElseThrow(() -> new EntityNotFoundException("Material not found ")));
 
-        mailService.sendEmailMessage(receiptForm, receipt.getProvider(), receipt.getMaterial());
+     //   mailService.sendEmailMessage(receiptForm, receipt.getProvider(), receipt.getMaterial());
         receiptRepository.save(receipt);
         return receipt.getId();
 
@@ -95,14 +95,9 @@ public class ReceiptServiceImpl implements ReceiptService {
           Receipt receipt = getOne(id).orElseThrow(()-> new EntityNotFoundException("Id not found"));
           receipt.setImageData(file);
 
-
-
           receiptRepository.save(receipt);
 
     }
 
-    @Override
-    public Receipt getLast() {
-        return receiptRepository.findFirstByOrderByIdDesc();
-    }
+
 }

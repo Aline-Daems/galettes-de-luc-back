@@ -27,7 +27,6 @@ public class MailServiceImpl implements MailService {
 
     private final  JavaMailSender emailSender;
     private final SpringTemplateEngine springTemplateEngine;
-
     private final DocumentGenerator documentGenerator;
 
     public MailServiceImpl(JavaMailSender emailSender, SpringTemplateEngine springTemplateEngine, DocumentGenerator documentGenerator) {
