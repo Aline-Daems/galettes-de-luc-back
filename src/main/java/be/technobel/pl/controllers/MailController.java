@@ -41,4 +41,19 @@ public class MailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
         }
     }
+
+    @PostMapping("/sendEmailMessage")
+    public ResponseEntity<String> sendEmailMessage(@RequestBody ReceiptForm  receiptForm,  @RequestParam Long providerId, @RequestParam Long materialId){
+
+        try{
+            Provider provider = providerService.getOne(providerId);
+            Material material = materialService.getOne(materialId);
+
+            mailService.sendEmailMessage(receiptForm,  provider, material);
+
+            return ResponseEntity.ok("Email sent successfully");
+        }catch (MessagingException e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
+        }
+    }
 }

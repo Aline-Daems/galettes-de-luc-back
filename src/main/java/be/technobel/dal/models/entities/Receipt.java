@@ -257,4 +257,6 @@ public class Receipt {
     public void setFrozenTemp(int frozenTemp) {
         this.frozenTemp = frozenTemp;
     }
+
+
 }

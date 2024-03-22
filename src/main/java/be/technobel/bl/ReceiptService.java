@@ -16,5 +16,7 @@ public interface ReceiptService {
 
    void dataImage(byte[] file, Long id);
 
+   byte[] getImageData(Long id);
+
 
 }

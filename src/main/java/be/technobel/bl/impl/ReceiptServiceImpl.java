@@ -94,10 +94,13 @@ public class ReceiptServiceImpl implements ReceiptService {
     public void dataImage(byte[] file, Long id)  {
           Receipt receipt = getOne(id).orElseThrow(()-> new EntityNotFoundException("Id not found"));
           receipt.setImageData(file);
-
           receiptRepository.save(receipt);
-
     }
 
+    @Override
+    public byte[] getImageData(Long id) {
+        Receipt receipt = getOne(id).orElseThrow(()-> new EntityNotFoundException("Id not found"));
+       return receipt.getImageData();
 
+    }
 }

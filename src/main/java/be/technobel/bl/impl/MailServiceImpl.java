@@ -74,7 +74,6 @@ public class MailServiceImpl implements MailService {
         helper.addAttachment("formulaire-reception "+ LocalDate.now() +".pdf" , pdfAttachement  );
 
 
-
         emailSender.send(message);
     }
 }
