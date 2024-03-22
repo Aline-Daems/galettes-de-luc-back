@@ -8,7 +8,6 @@ public class Email {
     String from;
     String subject;
 
-
     HtmlTemplate HtmlTemplate;
 
 

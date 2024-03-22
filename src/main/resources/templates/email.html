@@ -13,9 +13,11 @@
 
 <body>
 
+<h1>Formulaire de reception        <p th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}"> </h1>
+
     <div class="form">
 
-      <p th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}">
+        <p th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}">
 
         <p class="title">Email du réceptionniste:</p>
         <p th:text="${reception.email}">
@@ -65,6 +67,7 @@
         <p class="title">Commentaires : </p>
         <p th:text="${reception.comment}"></p>
 
+        <img th:src="'data:image/jpeg:charset=utf-8;base64,' + ${reception.imageBase64}" alt="photo">
     </div>
 
 </body>

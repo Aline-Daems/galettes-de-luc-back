@@ -50,6 +50,8 @@ public class Receipt {
     //The content of the document, stored as a large object (LOB)
     @Lob
     private byte[] imageData;
+
+    private String imageBase64;
     @ManyToOne
     private Provider provider;
 

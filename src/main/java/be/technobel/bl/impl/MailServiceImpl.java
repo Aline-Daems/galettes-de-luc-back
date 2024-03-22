@@ -4,6 +4,7 @@ import be.technobel.bl.MailService;
 import be.technobel.dal.models.entities.Email;
 import be.technobel.dal.models.entities.Material;
 import be.technobel.dal.models.entities.Provider;
+import be.technobel.dal.models.entities.Receipt;
 import be.technobel.pl.config.DocumentGenerator;
 import be.technobel.pl.forms.ReceiptForm;
 import jakarta.mail.MessagingException;
@@ -18,6 +19,7 @@ import org.thymeleaf.context.Context;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,9 @@ public class MailServiceImpl implements MailService {
 
         Context context = new Context();
         context.setVariables(email.getHtmlTemplate().getProps());
+
+
+
         return springTemplateEngine.process(email.getHtmlTemplate().getTemplate(), context);
     }
     @Override
@@ -53,13 +58,21 @@ public class MailServiceImpl implements MailService {
 
         MimeMessageHelper helper = new MimeMessageHelper(message,  MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
+        String imageBase64 = Base64.getEncoder().encodeToString(receiptForm.getImageData());
+
+        receiptForm.setImageBase64(imageBase64);
+
+
+
+
         Map<String, Object> properties = new HashMap<>();
         properties.put("reception", receiptForm);
         properties.put("provider", provider);
         properties.put("material", material);
 
 
-        Email email = new Email(receiptForm.email(), "daems.aline90@gmail.com", "Formulaire de réception "+ " " + LocalDate.now() +" " +provider.getName(), new Email.HtmlTemplate(templateName, properties));
+
+        Email email = new Email(receiptForm.getEmail(), "daems.aline90@gmail.com", "Formulaire de réception "+ " " + LocalDate.now() +" " +provider.getName(), new Email.HtmlTemplate(templateName, properties));
 
 
         String html = getHtmlContent(email);
@@ -67,8 +80,10 @@ public class MailServiceImpl implements MailService {
         ByteArrayResource pdfAttachement = new ByteArrayResource(pdfBytes);
 
 
+
+
         helper.setFrom(email.getFrom());
-        helper.setTo(receiptForm.email());
+        helper.setTo(receiptForm.getEmail());
         helper.setSubject(email.getSubject());
         helper.setText(html,true);
         helper.addAttachment("formulaire-reception "+ LocalDate.now() +".pdf" , pdfAttachement  );
