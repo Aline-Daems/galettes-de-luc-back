@@ -22,9 +22,9 @@ public record ReceiptDTO(
 
         boolean frozen,
 
-        int frozenTemp,
+        LocalDate frozenDate,
 
-        LocalDate thawedDate,
+        int frozenTemp,
 
         LocalDate FrozenExpirationDate,
 
@@ -51,7 +51,7 @@ public record ReceiptDTO(
 
 
         public static ReceiptDTO fromEntity (Receipt receipt){
-        return new ReceiptDTO(receipt.getId(), receipt.getReceiptDate(), receipt.getEmail(), receipt.getQuantity(), receipt.getProviderNumber(), receipt.getExpirationDate(), receipt.getTemperature(), receipt.isFrozen(), receipt.getFrozenTemp(), receipt.getThawedDate(), receipt.getFrozenExpirationDate(), receipt.isLabelling(), receipt.getLabelComment(), receipt.isPackaging(), receipt.getPackagingComment(), receipt.isHygiene(), receipt.getHygienComment(), receipt.getComment(), receipt.getProvider(), receipt.getMaterial(), receipt.getImageData());
+        return new ReceiptDTO(receipt.getId(), receipt.getReceiptDate(), receipt.getEmail(), receipt.getQuantity(), receipt.getProviderNumber(), receipt.getExpirationDate(), receipt.getTemperature(), receipt.isFrozen(),receipt.getFrozenDate() ,receipt.getFrozenTemp(),  receipt.getFrozenExpirationDate(), receipt.isLabelling(), receipt.getLabelComment(), receipt.isPackaging(), receipt.getPackagingComment(), receipt.isHygiene(), receipt.getHygienComment(), receipt.getComment(), receipt.getProvider(), receipt.getMaterial(), receipt.getImageData());
     }
 }
 

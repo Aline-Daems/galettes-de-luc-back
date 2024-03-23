@@ -30,9 +30,9 @@ public class Receipt {
 
     private int frozenTemp;
     private LocalDate frozenDate;
-    private LocalDate thawedDate;
+
     private LocalDate frozenExpirationDate;
-    private long frozenDays;
+
     @NotNull
     private boolean labelling =false;
     private String labelComment;
@@ -62,8 +62,36 @@ public class Receipt {
 
 
 
+    public Receipt(Long id, LocalDate receiptDate, double quantity, String providerNumber, LocalDate expirationDate, double temperature, boolean frozen, int frozenTemp, LocalDate frozenDate, LocalDate frozenExpirationDate, boolean labelling, String labelComment, boolean packaging, String packagingComment, boolean hygiene, String hygieneComment, String comment, String email, byte[] imageData, String imageBase64, Provider provider, Material material) {
+        this.id = id;
+        this.receiptDate = receiptDate;
+        this.quantity = quantity;
+        this.providerNumber = providerNumber;
+        this.expirationDate = expirationDate;
+        this.temperature = temperature;
+        this.frozen = frozen;
+        this.frozenTemp = frozenTemp;
+        this.frozenDate = frozenDate;
+        this.frozenExpirationDate = frozenExpirationDate;
+        this.labelling = labelling;
+        this.labelComment = labelComment;
+        this.packaging = packaging;
+        this.packagingComment = packagingComment;
+        this.hygiene = hygiene;
+        this.hygieneComment = hygieneComment;
+        this.comment = comment;
+        this.email = email;
+        this.imageData = imageData;
+        this.imageBase64 = imageBase64;
+        this.provider = provider;
+        this.material = material;
+    }
 
 
+
+    public Receipt() {
+
+    }
 
     public String getEmail() {
         return email;
@@ -150,13 +178,7 @@ public class Receipt {
         this.frozenDate = frozenDate;
     }
 
-    public LocalDate getThawedDate() {
-        return thawedDate;
-    }
 
-    public void setThawedDate(LocalDate thawedDate) {
-        this.thawedDate = thawedDate;
-    }
 
     public LocalDate getFrozenExpirationDate() {
         return frozenExpirationDate;
@@ -166,13 +188,6 @@ public class Receipt {
         this.frozenExpirationDate = frozenExpirationDate;
     }
 
-    public long getFrozenDays() {
-        return frozenDays;
-    }
-
-    public void setFrozenDays(long frozenDays) {
-        this.frozenDays = frozenDays;
-    }
 
     public boolean isLabelling() {
         return labelling;

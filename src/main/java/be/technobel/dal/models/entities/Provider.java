@@ -19,6 +19,18 @@ public class Provider {
 
     private boolean active=true;
 
+
+    public Provider(Long id, String name, String description, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.active = active;
+    }
+
+    public Provider() {
+
+    }
+
     public long getId() {
         return id;
     }

@@ -21,6 +21,17 @@ public class Material {
 
     private boolean active = true;
 
+    public Material(Long id, String name, boolean bio, boolean fresh, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.bio = bio;
+        this.fresh = fresh;
+        this.active = active;
+    }
+
+    public Material() {
+
+    }
 
     public Long getId() {
         return id;
