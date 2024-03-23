@@ -4,71 +4,144 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Email</title>
     <style>
-        .title{
+        .title {
             font-weight: bold;
         }
+
+        .form {
+            float: left;
+            width: 50%;
+            box-sizing: border-box;
+
+        }
+
+        .photo-container {
+            float: right;
+            width: 50%;
+            box-sizing: border-box;
+
+
+        }
+
+
+        .photo {
+            width: 22rem;
+            margin-right: 5%;
+        }
+
+
+        .box-grey {
+
+            background: #a19f9f;
+            color: black;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+            width: 200%;
+        }
+
+
     </style>
 </head>
 
 
 <body>
 
-<h1>Formulaire de reception        <p th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}"> </h1>
+    <h2>Formulaire de reception: </h2>
+    <h3 th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}"> </h3>
+    <section>
 
-    <div class="form">
 
-        <p th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}">
+        <div class="form">
 
-        <p class="title">Email du réceptionniste:</p>
-        <p th:text="${reception.email}">
-        <p class="title">Matière première</p> <p th:text="${material.name}">
-        <p class="title">Fournisseur:</p>
-        <p th:text="${provider.name}">
-        <p class="title">Numéro du Fournisseur : </p>
-        <p th:text="${reception.providerNumber}">
-        <p class="title">Quantité: </p>
-        <p th:text="${reception.quantity}">
-        <p class="title">D.L.U: </p>
-        <p th:text="${#temporals.format(reception.expirationDate, 'dd-MM-yyyy')}">
-        </p>
-         <div th:if="${material.fresh == true}">
-             <p>Température:</p>
-             <p th:text="${reception.temperature}"></p>
-         </div>
+            <p class="title">Email du réceptionniste:</p>
+            <p th:text="${reception.email}">
+            <p class="title">Matière première</p>
+            <p th:text="${material.name}">
+            <p class="title">Fournisseur:</p>
+            <p th:text="${provider.name}">
+            <p class="title">Numéro du Fournisseur : </p>
+            <p th:text="${reception.providerNumber}">
+            <p class="title">Quantité: </p>
+            <p th:text="${reception.quantity}">
+            <p class="title">D.L.U: </p>
+            <p th:text="${#temporals.format(reception.expirationDate, 'dd-MM-yyyy')}">
+            </p>
+            <div th:if="${material.fresh == true}">
+                <p>Température:</p>
+                <p th:text="${reception.temperature}"></p>
+            </div>
 
-        <p class="title">Produit surgelé ? </p>
-        <p th:text="${reception.frozen}"></p>
-        <div th:if="${reception.frozen == true}">
-            <p class="title">Température:</p>
-            <p th:text="${reception.frozenTemp}"></p>
-            <p class="title">Date de congélation:</p>
-            <p th:text="${reception.frozenDate}"></p>
-            <p class="title">Date de décongélation:</p>
-            <p th:text="${reception.thawedDate}"></p>
-            <p class="title">DLC:</p>
-            <p th:text="${reception.frozenExpirationDate}"></p>
-            <p class="title">Nombre de jour:</p>
-            <p th:text="${reception.frozenDays}"></p>
+            <p class="title">Produit surgelé ? </p>
+            <p th:text="${reception.frozen}"></p>
+            <div th:if="${reception.frozen == true}">
+                <p class="title">Température:</p>
+                <p th:text="${reception.frozenTemp}"></p>
+                <p class="title">Date de congélation:</p>
+                <p th:text="${reception.frozenDate}"></p>
+                <p class="title">Date de décongélation:</p>
+                <p th:text="${reception.thawedDate}"></p>
+                <p class="title">DLC:</p>
+                <p th:text="${reception.frozenExpirationDate}"></p>
+                <p class="title">Nombre de jour:</p>
+                <p th:text="${reception.frozenDays}"></p>
+            </div>
+
+            <p class="title">Etiquetage non conforme ? </p>
+            <div th:if="${reception.labelling == true}">
+                <p th:text="${reception.labelComment}"></p>
+            </div>
+            <p class="title">Embellage non conforme ? </p>
+            <div th:if="${reception.packaging == true}">
+                <p th:text="${reception.packagingComment}"></p>
+            </div>
+            <p class="title">Hygiène non conforme ? </p>
+            <div th:if="${reception.hygiene == true}">
+                <p th:text="${reception.hygieneComment}"></p>
+            </div>
+            <div th:if="${reception.comment != null}"></div>
+            <p class="title">Commentaires : </p>
+            <p th:text="${reception.comment}"></p>
+
+            <table class="box-grey">
+                <tr>
+                    <td rowspan="4">Lot présent dans la production</td>
+                    <td>Lot de la veille</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>+Nouveau Lot n°1</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>+Nouveau Lot n°2</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>+Nouveau Lot n°3</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Date de décongélation:</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Date d'incorporation:</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Signature:</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
 
-        <p class="title">Etiquetage non conforme ? </p>
-        <div th:if="${reception.labelling == true}">
-            <p th:text="${reception.labelComment}"></p>
+        <div class="photo-container">
+            <img th:src="'data:image/jpeg:charset=utf-8;base64,' + ${reception.imageBase64}" alt="photo" class="photo">
         </div>
-        <p class="title">Embellage non conforme ?  </p>
-        <div th:if="${reception.packaging == true}">
-            <p th:text="${reception.packagingComment}"></p>
-        </div>
-        <p class="title">Hygiène non conforme ? </p>
-        <div th:if="${reception.hygiene == true}">
-            <p th:text="${reception.hygieneComment}"></p>
-        </div>
-        <div th:if="${reception.comment != null}"></div>
-        <p class="title">Commentaires : </p>
-        <p th:text="${reception.comment}"></p>
-
-        <img th:src="'data:image/jpeg:charset=utf-8;base64,' + ${reception.imageBase64}" alt="photo">
-    </div>
-
+    </section>
 </body>
 </html>
