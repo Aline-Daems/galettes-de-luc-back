@@ -63,7 +63,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setFrozen(receiptForm.isFrozen());
         receipt.setFrozenTemp(receiptForm.getFrozenTemp());
         receipt.setFrozenDate(receiptForm.getFrozenDate());
-       // receipt.setThawedDate(receiptForm.getThawedDate());
+
         receipt.setFrozenExpirationDate(receiptForm.getFrozenExpirationDate());
         receipt.setLabelling(receiptForm.isLabelling());
         receipt.setLabelComment(receiptForm.getLabelComment());

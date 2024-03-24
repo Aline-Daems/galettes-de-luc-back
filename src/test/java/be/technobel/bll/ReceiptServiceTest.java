@@ -10,6 +10,7 @@ import be.technobel.dal.repositories.ReceiptRepository;
 import be.technobel.pl.dtos.ReceiptDTO;
 import be.technobel.pl.forms.ReceiptForm;
 import jakarta.mail.MessagingException;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -108,6 +109,66 @@ public class ReceiptServiceTest {
         String actualMessage = exception.getMessage();
 
         assertEquals(exceptedMessage, actualMessage);
+    }
+
+    @Test
+    void TestDataImage_WhenIdExists(){
+        Long id = 1L;
+
+        byte[] file = "test data".getBytes();
+
+        receipt.setId(id);
+
+        when(receiptRepository.findById(id)).thenReturn(Optional.of(receipt));
+
+        receiptService.dataImage(file, id);
+
+        verify(receiptRepository).save(receipt);
+
+        assertArrayEquals(file, receipt.getImageData());
+
+    }
+
+    @Test
+    void TestDataImage_WhenIdNotExist(){
+
+        Long id = 1L;
+
+        byte[] file = "test data".getBytes();
+
+        when(receiptRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> receiptService.dataImage(file, id));
+
+        verify(receiptRepository, never()).save(any());
+    }
+
+    @Test
+    void TestGetImageData_WhenIdExist(){
+
+        Long id = 1L;
+
+        byte[] imageData = "test data".getBytes();
+        Receipt receipt1  = new Receipt();
+
+        receipt1.setId(id);
+
+        receipt1.setImageData(imageData);
+        when(receiptRepository.findById(id)).thenReturn(Optional.of(receipt1));
+
+        byte[] result = receiptService.getImageData(id);
+
+        assertArrayEquals(imageData, result);
+    }
+
+    @Test
+    void testGetImageData_WhenIdNotExist(){
+
+        Long id = 1L;
+
+        when(receiptRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> receiptService.getImageData(id));
     }
 
 

@@ -32,7 +32,6 @@ public class Receipt {
     private LocalDate frozenDate;
 
     private LocalDate frozenExpirationDate;
-
     @NotNull
     private boolean labelling =false;
     private String labelComment;
