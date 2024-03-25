@@ -41,13 +41,9 @@ public class ReceiptServiceTest {
     @Mock
     MaterialRepository materialRepository;
     private Receipt receipt;
-
     private ReceiptDTO receiptDTO;
-
     private ReceiptForm receiptForm;
-
     private Provider provider;
-
     private Material material;
 
     @BeforeEach
@@ -58,8 +54,8 @@ public class ReceiptServiceTest {
 
         material = new Material(1L, "Oeuf", false, false, true);
 
-        receiptDTO = new ReceiptDTO(1L, LocalDate.now(), "calirra551@gmail.com", 50, "1258", LocalDate.now().plusDays(1), 5, false,  LocalDate.now().plusDays(10),5, LocalDate.now().plusDays(10) ,false, null, false, null, false, null, "RAS", provider, material, byteArray);
-        receipt = new Receipt(receiptDTO.id(), receiptDTO.receiptDate(),  receiptDTO.quantity(), receiptDTO.providerNumber(), receiptDTO.expirationDate(), receiptDTO.temperature(), receiptDTO.frozen(), receiptDTO.frozenTemp(), receiptDTO.frozenDate() ,receiptDTO.FrozenExpirationDate() , receiptDTO.labelling(), receiptDTO.labelComment(), receiptDTO.packaging(), receiptDTO.packagingComment(), receiptDTO.hygiene(), receiptDTO.hygieneComment(), receiptDTO.comment(), receiptDTO.email() ,receiptDTO.imageData()," ",receiptDTO.provider(), receiptDTO.material());
+        receiptDTO = new ReceiptDTO(1L, LocalDate.now(), "calirra551@gmail.com", 50, "1258", LocalDate.now().plusDays(1), 5, false,  LocalDate.now().plusDays(10),5, LocalDate.now().plusDays(10) ,false, null, false, null, false, null, "RAS", provider, material, byteArray, true);
+        receipt = new Receipt(receiptDTO.id(), receiptDTO.receiptDate(),  receiptDTO.quantity(), receiptDTO.providerNumber(), receiptDTO.expirationDate(), receiptDTO.temperature(), receiptDTO.frozen(), receiptDTO.frozenTemp(), receiptDTO.frozenDate() ,receiptDTO.FrozenExpirationDate() , receiptDTO.labelling(), receiptDTO.labelComment(), receiptDTO.packaging(), receiptDTO.packagingComment(), receiptDTO.hygiene(), receiptDTO.hygieneComment(), receiptDTO.comment(), receiptDTO.email() ,receiptDTO.imageData()," ",receiptDTO.provider(), receiptDTO.material(), receiptDTO.active());
         receiptForm = new ReceiptForm(LocalDate.now(), 50, "1235",  LocalDate.now().plusDays(1), 5, false, 5,  LocalDate.now().plusDays(10), LocalDate.now().plusDays(10), false, null, false, null, false, null, "calirra551@gmail.com", "calirra551@gmail.com", 1L, 1L, byteArray, null);
 
     }

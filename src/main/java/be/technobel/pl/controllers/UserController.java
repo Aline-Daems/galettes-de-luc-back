@@ -5,6 +5,7 @@ import be.technobel.pl.dtos.AuthDTO;
 import be.technobel.pl.forms.LoginForm;
 import be.technobel.pl.forms.UserForm;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +21,13 @@ public class UserController {
         this.userService = userService;
     }
 
-   // @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/login")
     public AuthDTO login(@RequestBody LoginForm form){
         return userService.login(form);
     }
 
-  //  @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('admin')")
     @PostMapping("/create")
     public void create(@RequestBody UserForm form){
         userService.create(form);

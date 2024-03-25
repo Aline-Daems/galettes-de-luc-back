@@ -8,6 +8,7 @@ import be.technobel.dal.models.entities.Receipt;
 import be.technobel.dal.repositories.MaterialRepository;
 import be.technobel.dal.repositories.ProviderRepository;
 import be.technobel.dal.repositories.ReceiptRepository;
+import be.technobel.pl.dtos.ReceiptDTOMinus;
 import be.technobel.pl.forms.ReceiptForm;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -23,6 +24,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -79,7 +81,6 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt savedReceipt = receiptRepository.save(receipt);
         return savedReceipt.getId();
 
-
     }
 
 
@@ -102,5 +103,18 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt receipt = getOne(id).orElseThrow(()-> new EntityNotFoundException("Id not found"));
        return receipt.getImageData();
 
+    }
+
+    @Override
+    public List<ReceiptDTOMinus> getAll() {
+        return receiptRepository.findByActiveTrue();
+    }
+
+    @Override
+    public void delete(Long id) {
+        Receipt receipt = getOne(id).orElseThrow(() -> new EntityNotFoundException("Id not found"));
+        receipt.setActive(false);
+
+        receiptRepository.save(receipt);
     }
 }

@@ -10,6 +10,7 @@ import be.technobel.pl.forms.ReceiptForm;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,7 +27,7 @@ public class MailController {
         this.materialService = materialService;
         this.providerService = providerService;
     }
-
+    @PreAuthorize("hasRole('admin')")
     @PostMapping("/sendEmail")
     public ResponseEntity<String> sendEmail(@RequestBody ReceiptForm  receiptForm, @RequestParam String templateName, @RequestParam Long providerId, @RequestParam Long materialId){
 
@@ -41,7 +42,7 @@ public class MailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
         }
     }
-
+    @PreAuthorize("hasRole('admin')")
     @PostMapping("/sendEmailMessage")
     public ResponseEntity<String> sendEmailMessage(@RequestBody ReceiptForm  receiptForm,  @RequestParam Long providerId, @RequestParam Long materialId){
 

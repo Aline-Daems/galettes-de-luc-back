@@ -58,10 +58,12 @@ public class Receipt {
     @ManyToOne
     Material material;
 
+    private Boolean active = true;
 
 
 
-    public Receipt(Long id, LocalDate receiptDate, double quantity, String providerNumber, LocalDate expirationDate, double temperature, boolean frozen, int frozenTemp, LocalDate frozenDate, LocalDate frozenExpirationDate, boolean labelling, String labelComment, boolean packaging, String packagingComment, boolean hygiene, String hygieneComment, String comment, String email, byte[] imageData, String imageBase64, Provider provider, Material material) {
+
+    public Receipt(Long id, LocalDate receiptDate, double quantity, String providerNumber, LocalDate expirationDate, double temperature, boolean frozen, int frozenTemp, LocalDate frozenDate, LocalDate frozenExpirationDate, boolean labelling, String labelComment, boolean packaging, String packagingComment, boolean hygiene, String hygieneComment, String comment, String email, byte[] imageData, String imageBase64, Provider provider, Material material, Boolean active) {
         this.id = id;
         this.receiptDate = receiptDate;
         this.quantity = quantity;
@@ -84,6 +86,7 @@ public class Receipt {
         this.imageBase64 = imageBase64;
         this.provider = provider;
         this.material = material;
+        this.active = active;
     }
 
 
@@ -275,4 +278,11 @@ public class Receipt {
     }
 
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
