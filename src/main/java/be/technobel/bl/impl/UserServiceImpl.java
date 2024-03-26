@@ -7,10 +7,13 @@ import be.technobel.pl.config.JWTProvider;
 import be.technobel.pl.dtos.AuthDTO;
 import be.technobel.pl.forms.LoginForm;
 import be.technobel.pl.forms.UserForm;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,4 +62,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
     }
+
+
 }
