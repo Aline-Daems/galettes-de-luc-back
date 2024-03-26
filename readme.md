@@ -29,5 +29,5 @@
 
     *Il ne s’agit pas du mot de passe de la boite mail mais bien le mot de passe pour applications.* 
 
-
+---
 Pour toutes demandes ou question n'hésitez pas à me contacter : contact@aline-daems.be
