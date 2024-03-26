@@ -28,7 +28,7 @@ public class UserController {
         return userService.login(form);
     }
 
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/create")
     public void create(@RequestBody UserForm form){
         userService.create(form);
