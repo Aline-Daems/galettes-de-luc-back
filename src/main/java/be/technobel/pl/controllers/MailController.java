@@ -42,7 +42,7 @@ public class MailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
         }
     }
-    @PreAuthorize("hasRole('admin')")
+
     @PostMapping("/sendEmailMessage")
     public ResponseEntity<String> sendEmailMessage(@RequestBody ReceiptForm  receiptForm,  @RequestParam Long providerId, @RequestParam Long materialId){
 

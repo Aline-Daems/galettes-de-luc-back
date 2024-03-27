@@ -231,12 +231,12 @@ public class Receipt {
         this.hygiene = hygiene;
     }
 
-    public String getHygienComment() {
+    public String getHygieneComment() {
         return hygieneComment;
     }
 
-    public void setHygienComment(String hygienComment) {
-        this.hygieneComment = hygienComment;
+    public void setHygieneComment(String hygieneComment) {
+        this.hygieneComment = hygieneComment;
     }
 
     public String getComment() {

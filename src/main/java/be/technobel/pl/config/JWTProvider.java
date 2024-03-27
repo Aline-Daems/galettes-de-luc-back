@@ -26,7 +26,7 @@ public class JWTProvider {
     private static final long EXPIRES_AT = 3_600_000;
     private static final String AUTH_HEADER = "Authorization";
 
-    private static final String TOKEN_PREFIX =" Bearer ";
+    private static final String TOKEN_PREFIX ="Bearer ";
 
     private final UserDetailsService userDetailsService;
 

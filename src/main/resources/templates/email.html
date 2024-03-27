@@ -10,14 +10,14 @@
 
         .form {
             float: left;
-            width: 50%;
+            width: 100%;
             box-sizing: border-box;
 
         }
 
         .photo-container {
-            float: right;
-            width: 50%;
+            float: left;
+            width: 70%;
             box-sizing: border-box;
 
 
@@ -25,8 +25,8 @@
 
 
         .photo {
-            width: 22rem;
-            margin-right: 5%;
+            width: 30rem;
+
         }
 
 
@@ -37,9 +37,20 @@
             padding: 0.5rem;
             margin-bottom: 2rem;
             margin-top: 2rem;
-            width: 200%;
+            width: 100%;
+
         }
 
+        .green {
+            background: chartreuse;
+        }
+
+        .container-1{
+            float:left;
+        }
+        .container-2{
+            float:right;
+        }
 
     </style>
 </head>
@@ -48,101 +59,125 @@
 <body>
 
 
-    <h2>Formulaire de reception: </h2>
-    <h3 th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}"> </h3>
-    <section>
+<h2>Formulaire de reception: </h2>
+<h3 th:text="${#temporals.format(reception.receiptDate, 'dd-MM-yyyy')}"></h3>
+<section>
 
 
-        <div class="form">
+    <div class="form">
 
-            <p class="title">Email du réceptionniste:</p>
-            <p th:text="${reception.email}">
-            <p class="title">Matière première</p>
-            <p th:text="${material.name}">
-            <p class="title">Fournisseur:</p>
-            <p th:text="${provider.name}">
-            <p class="title">Numéro du Fournisseur : </p>
-            <p th:text="${reception.providerNumber}">
-            <p class="title">Quantité: </p>
-            <p th:text="${reception.quantity}">
-            <p class="title">D.L.U: </p>
-            <p th:text="${#temporals.format(reception.expirationDate, 'dd-MM-yyyy')}">
-            </p>
-            <div th:if="${material.fresh == true}">
-                <p>Température:</p>
-                <p th:text="${reception.temperature}"></p>
-            </div>
 
-            <p class="title">Produit surgelé ? </p>
-            <p th:text="${reception.frozen}"></p>
-            <div th:if="${reception.frozen == true}">
-                <p class="title">Température:</p>
-                <p th:text="${reception.frozenTemp}"></p>
-                <p class="title">Date de congélation:</p>
-                <p th:text="${reception.frozenDate}"></p>
-                <p class="title">Date de décongélation:</p>
-                <p th:text="${reception.thawedDate}"></p>
-                <p class="title">DLC:</p>
-                <p th:text="${reception.frozenExpirationDate}"></p>
-                <p class="title">Nombre de jour:</p>
-                <p th:text="${reception.frozenDays}"></p>
-            </div>
+        <div class="container-1">
 
-            <p class="title">Etiquetage non conforme ? </p>
-            <div th:if="${reception.labelling == true}">
-                <p th:text="${reception.labelComment}"></p>
-            </div>
-            <p class="title">Embellage non conforme ? </p>
-            <div th:if="${reception.packaging == true}">
-                <p th:text="${reception.packagingComment}"></p>
-            </div>
-            <p class="title">Hygiène non conforme ? </p>
-            <div th:if="${reception.hygiene == true}">
-                <p th:text="${reception.hygieneComment}"></p>
-            </div>
-            <div th:if="${reception.comment != null}"></div>
-            <p class="title">Commentaires : </p>
-            <p th:text="${reception.comment}"></p>
-
-            <table class="box-grey">
-                <tr>
-                    <td rowspan="4">Lot présent dans la production</td>
-                    <td>Lot de la veille</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>+Nouveau Lot n°1</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>+Nouveau Lot n°2</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>+Nouveau Lot n°3</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Date de décongélation:</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Date d'incorporation:</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Signature:</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+        <p class="title">Email du réceptionniste:</p>
+        <p th:text="${reception.email}">
+        <p class="title">Matière première</p>
+        <p th:text="${material.name}">
+        <p class="title">Fournisseur:</p>
+        <p th:text="${provider.name}">
+        <p class="title">Numéro du Fournisseur : </p>
+        <p th:text="${reception.providerNumber}">
+        <p class="title">Quantité: </p>
+        <p th:text="${reception.quantity}">
+        <p class="title">D.L.U: </p>
+        <p th:text="${#temporals.format(reception.expirationDate, 'dd-MM-yyyy')}">
+        </p>
+        <div th:if="${material.fresh == true}">
+            <p>Température:</p>
+            <p th:text="${reception.temperature}"></p>
+        </div>
         </div>
 
-        <div class="photo-container">
-            <img th:src="'data:image/jpeg:charset=utf-8;base64,' + ${reception.imageBase64}" alt="photo" class="photo">
+        <div class="container-2">
+
+        <p class="title">Produit surgelé ? </p>
+        <p th:if="${reception.frozen == false}">Non</p>
+        <div th:if="${reception.frozen == true}">
+            <p>Oui</p>
+            <p class="title">Température:</p>
+            <p th:text="${reception.frozenTemp}"></p>
+            <p class="title">Date de congélation:</p>
+            <p th:text="${reception.frozenDate}"></p>
+            <p class="title">Date de décongélation:</p>
+            <p th:text="${reception.thawedDate}"></p>
+            <p class="title">DLC:</p>
+            <p th:text="${reception.frozenExpirationDate}"></p>
+            <p class="title">Nombre de jour:</p>
+            <p th:text="${reception.frozenDays}"></p>
         </div>
-    </section>
+
+        <p class="title">Etiquetage non conforme ? </p>
+        <div th:if="${reception.labelling == true}">
+            <p>Oui</p>
+            <p th:text="${reception.labelComment}"></p>
+        </div>
+        <p th:if="${reception.labelling == false}">Non</p>
+        <p class="title">Embellage non conforme ? </p>
+        <div th:if="${reception.packaging == true}">
+            <p>Oui</p>
+            <p th:text="${reception.packagingComment}"></p>
+        </div>
+        <p th:if="${reception.packaging == false}">Non</p>
+        <p class="title">Hygiène non conforme ? </p>
+        <div th:if="${reception.hygiene == true}">
+            <p>Oui</p>
+            <p th:text="${reception.hygieneComment}"></p>
+        </div>
+        <p th:if="${reception.hygiene == false}">Non</p>
+        <div th:if="${reception.comment != null}"></div>
+        <p class="title">Commentaires : </p>
+        <p th:text="${reception.comment}"></p>
+
+        <div th:if="${material.bio == true}" class="green">
+            <p>reception bio : Imprimer 2 fois et en mettre une sur le bureau de Luc</p>
+            <p>Luc: Encoder dans DOC-99-1 Stock bio puis dans farde 1-15</p>
+        </div>
+        </div>
+
+    <table class="box-grey">
+        <!-- Ligne 1 -->
+        <tr>
+            <td></td>
+            <td>Lot de la veille</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                Nouveau lot n°1
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Lot présent dans la production
+            </td>
+            <td>Nouveau lot n°2</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td> Nouveau lot n°3</td>
+
+        </tr>
+
+        <tr>
+            <td>Date d'incorporation:</td>
+        </tr>
+
+        <tr>
+            <td> Date de décongélation:</td>
+
+        </tr>
+
+        <tr>
+            <td> Signature:</td>
+        </tr>
+
+
+    </table>
+    </div>
+    <div class="photo-container">
+        <img th:src="'data:image/jpeg:charset=utf-8;base64,' + ${reception.imageBase64}" alt="photo" class="photo">
+    </div>
+</section>
+
 </body>
 </html>

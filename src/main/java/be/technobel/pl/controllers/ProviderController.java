@@ -26,6 +26,7 @@ public class ProviderController {
 
         providerService.create(providerForm);
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/all")
     public ResponseEntity<List<ProviderDTO>> getAll(){

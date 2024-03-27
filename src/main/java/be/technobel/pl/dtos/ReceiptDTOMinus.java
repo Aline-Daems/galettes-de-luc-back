@@ -51,7 +51,7 @@ public record ReceiptDTOMinus(
 
 
     public static ReceiptDTOMinus fromEntity (Receipt receipt){
-        return new ReceiptDTOMinus(receipt.getId(), receipt.getReceiptDate(), receipt.getEmail(), receipt.getQuantity(), receipt.getProviderNumber(), receipt.getExpirationDate(), receipt.getTemperature(), receipt.isFrozen(),receipt.getFrozenDate() ,receipt.getFrozenTemp(),  receipt.getFrozenExpirationDate(), receipt.isLabelling(), receipt.getLabelComment(), receipt.isPackaging(), receipt.getPackagingComment(), receipt.isHygiene(), receipt.getHygienComment(), receipt.getComment(), receipt.getProvider(), receipt.getMaterial(), receipt.getActive());
+        return new ReceiptDTOMinus(receipt.getId(), receipt.getReceiptDate(), receipt.getEmail(), receipt.getQuantity(), receipt.getProviderNumber(), receipt.getExpirationDate(), receipt.getTemperature(), receipt.isFrozen(),receipt.getFrozenDate() ,receipt.getFrozenTemp(),  receipt.getFrozenExpirationDate(), receipt.isLabelling(), receipt.getLabelComment(), receipt.isPackaging(), receipt.getPackagingComment(), receipt.isHygiene(), receipt.getHygieneComment(), receipt.getComment(), receipt.getProvider(), receipt.getMaterial(), receipt.getActive());
     }
 }
 

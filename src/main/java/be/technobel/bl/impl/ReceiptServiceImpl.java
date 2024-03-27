@@ -65,14 +65,13 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setFrozen(receiptForm.isFrozen());
         receipt.setFrozenTemp(receiptForm.getFrozenTemp());
         receipt.setFrozenDate(receiptForm.getFrozenDate());
-
         receipt.setFrozenExpirationDate(receiptForm.getFrozenExpirationDate());
         receipt.setLabelling(receiptForm.isLabelling());
         receipt.setLabelComment(receiptForm.getLabelComment());
         receipt.setPackaging(receiptForm.isPackaging());
         receipt.setPackagingComment(receiptForm.getPackagingComment());
         receipt.setHygiene(receiptForm.isHygiene());
-        receipt.setHygienComment(receiptForm.getHygieneComment());
+        receipt.setHygieneComment(receiptForm.getHygieneComment());
         receipt.setEmail(receiptForm.getEmail());
         receipt.setProvider(providerRepository.findById(receiptForm.getProviderId()).orElseThrow(()-> new EntityNotFoundException("Provider not found")));
         receipt.setMaterial(materialRepository.findById(receiptForm.getMaterialId()).orElseThrow(() -> new EntityNotFoundException("Material not found ")));
