@@ -1,0 +1,44 @@
+version: '3.8'
+networks:
+  backend:
+
+services:
+
+  backend:
+    container_name: backend
+    image: galettes-de-luc-back-end
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - backend
+    
+  db:
+    image: "postgres"
+    container_name: database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Morrigan551!
+      POSTGRES_DB: galettes
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/liv/postgresql/data
+    networks:
+      - backend
+  
+
+  frontend:
+    container_name: frontend
+    image: galettes-de-luc-front-end
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - backend
+
+volumes:
+  db-data:
+
